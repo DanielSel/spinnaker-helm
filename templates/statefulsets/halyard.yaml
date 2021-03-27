@@ -82,7 +82,7 @@ spec:
         secret:
           secretName: {{ .Values.kubeConfig.secretName }}
       {{- end }}
-      {{- if .Values.gcs.enabled }}
+      {{- if and .Values.gcs.enabled .Values.gcs.jsonKey }}
       - name: gcs-key
         secret:
         {{- if .Values.gcs.secretName }}
@@ -167,7 +167,7 @@ spec:
 {{ toYaml .Values.halyard.resources | indent 10 }}
         {{- end }}
         volumeMounts:
-        {{- if .Values.gcs.enabled }}
+        {{- if and .Values.gcs.enabled .Values.gcs.jsonKey }}
         - name: gcs-key
           mountPath: /opt/gcs
         {{- end }}

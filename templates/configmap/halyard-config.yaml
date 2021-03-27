@@ -77,7 +77,10 @@ data:
     $HAL_COMMAND config storage edit --type s3
     {{ end }}
     {{ if .Values.gcs.enabled }}
-    $HAL_COMMAND config storage gcs edit --project {{ .Values.gcs.project }} --json-path /opt/gcs/key.json --bucket {{ .Values.gcs.bucket }}
+    $HAL_COMMAND config storage gcs edit --project {{ .Values.gcs.project }} --bucket {{ .Values.gcs.bucket }} \
+    {{ if .Values.gcs.jsonKey }}
+    --json-path /opt/gcs/key.json
+    {{ end }}
     $HAL_COMMAND config storage edit --type gcs
     {{ end }}
     {{ if .Values.azs.enabled }}

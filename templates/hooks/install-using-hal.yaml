@@ -74,7 +74,7 @@ spec:
         configMap:
           name: {{ template "spinnaker.fullname" . }}-halyard-bom
       {{- end }}
-      {{- if .Values.gcs.enabled }}
+      {{- if and .Values.gcs.enabled .Values.gcs.jsonKey }}
       - name: gcs-key
         secret:
         {{- if .Values.gcs.secretName }}
@@ -120,7 +120,7 @@ spec:
         - name: halyard-bom
           mountPath: /opt/halyard/bom
         {{- end }}
-        {{- if .Values.gcs.enabled }}
+        {{- if and .Values.gcs.enabled .Values.gcs.jsonKey }}
         - name: gcs-key
           mountPath: /opt/gcs
         {{- end }}
